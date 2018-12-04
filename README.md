@@ -1,31 +1,30 @@
-# shinyBR
+# shinyBR  
+  
+Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).  
+Servidor padronizado para a lingua portuguesa, Brasil.  
+Inclui os comandos para a pré-instalação dos seguintes pacotes:  
+  
+**list.of.packages** <- c("shiny",  
+ "readr", "DT", "shinymaterial", "tidyverse", "flexdashboard",  
+  "sf", "rgeos", "rgdal", "readxl", "rmapshaper", "leaflet",  
+  "shinythemes", "Cairo", "rAmCharts", "forcats", "formattable",  
+ "gridExtra", "highcharter", "htmltools", "htmlwidgets", "knitr",  
+ "kableExtra", "leaflet.extras", "lubridate", "pacman", "purrr",  
+ "RColorBrewer", "reshape2", "stringr", "broom", "crosstalk",  
+ "devtools", "extrafont", "formatR", "gapminder", "ggmap",   
+ "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts",  
+ "maptools", "plotly","reshape", "reshape", "rmarkdown",  
+ "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis",  
+ "viridisLite", "xtable")  
 
-Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).
-Servidor padronizado para a lingua portuguesa, Brasil.
-Inclui os comandos para a pré-instalação dos seguintes pacotes:
-
-**list.of.packages** <- c("shiny",
-
- "readr", "DT", "shinymaterial", "tidyverse", "flexdashboard",
-  "sf", "rgeos", "rgdal", "readxl", "rmapshaper", "leaflet",
-  "shinythemes", "Cairo", "rAmCharts", "forcats", "formattable",
- "gridExtra", "highcharter", "htmltools", "htmlwidgets", "knitr",
- "kableExtra", "leaflet.extras", "lubridate", "pacman", "purrr",
- "RColorBrewer", "reshape2", "stringr", "broom", "crosstalk",
- "devtools", "extrafont", "formatR", "gapminder", "ggmap", 
- "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts",
- "maptools", "plotly","reshape", "reshape", "rmarkdown",
- "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis",
- "viridisLite", "xtable")
-
-## Comando para gerar a imagem - Arquivo: `docker build.sh`
+## Comando para gerar a imagem - Arquivo: `docker build.sh`  
 
 ```
-docker build --build-arg def_nameserver=**8.8.8.8** -t dms/shinybr .
+docker build --build-arg def_nameserver=**8.8.8.8** -t dms/shinybr .  
 ```
-### Se necessário substitua o ip do servidor de nomes por outro.
+### Se necessário substitua o ip do servidor de nomes por outro.  
 
-1 - Primeiro é necessário criar no servidor os diretórios onde ficarão armazenadas os __apps, configurações e logs__.
+1 - Primeiro é necessário criar no servidor os diretórios onde ficarão armazenadas os __apps, configurações e logs__.  
 
 - **Criar diretórios:**
 - /srv/shiny-server
