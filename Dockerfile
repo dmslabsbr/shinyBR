@@ -75,6 +75,7 @@ ENV TERM='xterm'
 RUN mkdir /root/pgj
 COPY pgj /root/pgj
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
+COPY index.html /root
 RUN apt-get clean
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('/root/pgj')"]
+CMD ["R", "-e", "shiny::runApp('/root')"]
