@@ -1,28 +1,80 @@
-FROM rocker/r-ver:latest
+FROM rocker/shiny
+MAINTAINER Daniel "danielmiele@mpgo.mp.br"
+# system libraries of general use
 
-RUN apt-get update && apt-get install -y \
+ARG def_nameserver=8.8.8.8
+
+RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils \
     sudo \
-    gdebi-core \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
     libcairo2-dev \
     libxt-dev \
-    xtail \
-    wget
+    libssl-dev \
+    libssh2-1-dev \
+    libxml2-dev \
+    locales \
+    locales-all
 
-# Download and install shiny server
-RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
-    VERSION=$(cat version.txt)  && \
-    wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
-    gdebi -n ss-latest.deb && \
-    rm -f version.txt ss-latest.deb && \
-    . /etc/environment && \
-    R -e "install.packages(c('shiny', 'rmarkdown'), repos='$MRAN')" && \
-    cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
+#LOCALE
+ENV LC_ALL pt_BR.utf8
+ENV LANG pt_BR.utf8
+ENV LANGUAGE pt_BR.utf8
+ENV TZ="America Sao_Paulo"
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    sudo locale-gen pt_BR pt_BR.utf8 pt_BR.iso88591 \
+      Portuguese_Brazil Portuguese_Brazil.1252 && \
+    sudo update-locale && \
+    sudo dpkg-reconfigure locales
 
+#Nameserver
+RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    apt-get update && apt-get install -y sudo gdebi-core wget
+
+# basic shiny functionality
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    R -e "install.packages(c('shiny', 'rmarkdown', \
+    'shinymaterial', 'tidyverse', 'readr', 'DT'))"
+
+# Novos pacotes
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    apt-get install -y --no-install-recommends \
+    libprotobuf-dev \
+    libv8-dev \
+    libudunits2-dev \
+    libjq-dev \
+    libgdal-dev \
+    protobuf-compiler
+
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    R -e "install.packages(c('rmapshaper', 'flexdashboard', 'leaflet', \
+    'shinythemes', 'Cairo', 'rAmCharts', 'formattable', \
+    'gridExtra', 'highcharter', 'htmlwidgets', \
+    'knitr', 'kableExtra', 'leaflet.extras', \
+    'pacman', 'devtools', 'extrafont', \
+    'formatR', 'gapminder', 'ggmap', \
+    'ggthemes', 'leaflet.minicharts', 'plotly', \
+    'reshape', 'reshape', 'tictoc', \
+    'tmap', 'tmaptools', 'viridis'))"
+
+# Config
+ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
+ENV R_VERSION='3.5.1'
+ENV TERM='xterm'
+
+# copy the app to the image
+RUN mkdir /root/pgj
+COPY pgj /root/pgj
+COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
+RUN apt-get clean
 EXPOSE 3838
-
-COPY shiny-server.sh /usr/bin/shiny-server.sh
-
-CMD ["/usr/bin/shiny-server.sh"]
+CMD ["R", "-e", "shiny::runApp('/root/pgj')"]
