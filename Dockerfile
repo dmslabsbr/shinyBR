@@ -70,8 +70,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'formatR', 'gapminder', 'ggmap', \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape', 'tictoc', \
-    'tmap', 'tmaptools', 'viridis'))"
-	&& \
+    'tmap', 'tmaptools', 'viridis'))" && \
 	apt-get clean
 
 # Config
