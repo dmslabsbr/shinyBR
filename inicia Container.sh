@@ -16,4 +16,4 @@ docker run -d --name shiny-br --restart unless-stopped -p 3839:3838 \
     -v /srv/shiny-server/apps/:/srv/shiny-server/ \
     -v /srv/shiny-server/log/:/var/log/shiny-server/ \
     -v /srv/shiny-server/cfg:/etc/shiny-server \
-    dms/shinybr /usr/bin/shiny-server.sh
+    dmslabsbr/shinybr /usr/bin/shiny-server.sh
