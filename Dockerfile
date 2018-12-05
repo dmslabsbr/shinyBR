@@ -18,7 +18,8 @@ RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     libssh2-1-dev \
     libxml2-dev \
     locales \
-    locales-all
+    locales-all && \
+	apt-get clean
 
 #LOCALE
 ENV LC_ALL pt_BR.utf8
@@ -30,18 +31,22 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     sudo locale-gen pt_BR pt_BR.utf8 pt_BR.iso88591 \
       Portuguese_Brazil Portuguese_Brazil.1252 && \
     sudo update-locale && \
-    sudo dpkg-reconfigure locales
+    sudo dpkg-reconfigure locales  && \
+	apt-get clean
 
 #Nameserver
 RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search intranet.mpgo" >> /etc/resolv.conf && \
-    apt-get update && apt-get install -y sudo gdebi-core wget
+    apt-get update && \ 
+	apt-get install -y sudo gdebi-core wget  && \
+	apt-get clean
 
 # basic shiny functionality
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search intranet.mpgo" >> /etc/resolv.conf && \
     R -e "install.packages(c('shiny', 'rmarkdown', \
-    'shinymaterial', 'tidyverse', 'readr', 'DT'))"
+    'shinymaterial', 'tidyverse', 'readr', 'DT'))"  && \
+	apt-get clean
 
 # Novos pacotes
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
@@ -52,7 +57,8 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     libudunits2-dev \
     libjq-dev \
     libgdal-dev \
-    protobuf-compiler
+    protobuf-compiler  && \
+	apt-get clean
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search intranet.mpgo" >> /etc/resolv.conf && \
@@ -65,6 +71,8 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape', 'tictoc', \
     'tmap', 'tmaptools', 'viridis'))"
+	&& \
+	apt-get clean
 
 # Config
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
@@ -72,8 +80,9 @@ ENV R_VERSION='3.5.1'
 ENV TERM='xterm'
 
 # copy the app to the image
-RUN mkdir /root/pgj
-COPY pgj /root/pgj
+#RUN mkdir /root/pgj
+#COPY pgj /root/pgj
+
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
 COPY index.html /root
 RUN apt-get clean
