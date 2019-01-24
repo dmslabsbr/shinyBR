@@ -13,7 +13,7 @@ cp -u index.html /srv/shiny-server/apps
 
 
 # inicia Shiny-server
-docker run -d --name shiny --restart always \
+docker run -d --name shiny_srv --restart always \
     -p 3839:3838 \
     --dns=8.8.8.8 \
     -e PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
@@ -30,28 +30,34 @@ docker run -d --name shiny --restart always \
     
 # Start portainer_app
 docker run -d --name portainer_app --restart always \
+    --dns=8.8.8.8 \
     -p 9001:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /opt/portainer/data:/data \
-    portainer/portainer
+    portainer/portainer --host=unix:///var/run/docker.sock
     
 
 # Start filebrowser_app
 docker run -d --name filebrowser_app --restart always \
-      -p 9002:80 \
-      -v /srv/filebrowser/config.json:/config.json \
-      -v /srv/filebrowser/etc:/etc \
-      -v /srv/shiny-server/apps:/srv/app \
-      -v /srv/shiny-server/log:/srv/log \
+    --dns=8.8.8.8 \
+    -p 9002:80 \
+    -v /srv/filebrowser/config.json:/config.json \
+    -v /srv/filebrowser/etc:/etc \
+    -v /srv/shiny-server/apps:/srv/app \
+    -v /srv/shiny-server/log:/srv/log \
     filebrowser/filebrowser
     
     
 # Start samba_app - Please change the password
 docker run -d --name samba_app --restart always \
-      -p 139:139 \
-      -p 445:445 \
-      -v /srv/shiny-server/apps:/srv/apps \
-      -v /srv/shiny-server/log:/srv/log \
+    --dns=8.8.8.8 \
+    -p 139:139 \
+    -p 445:445 \
+    -v /srv/shiny-server/apps:/srv/apps \
+    -v /srv/shiny-server/log:/srv/log \
     dperson/samba -u "ggi;Rserverggi" \
     -s "shiny;/srv;yes;no;yes;all;ggi;ggi;'Pasta R Shiny Server'"
+    
+# lista tudo
+docker ps
     
