@@ -1,4 +1,4 @@
-# shinyBR  
+﻿# shinyBR  
   
 Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).  
 Servidor padronizado para a lingua portuguesa, Brasil.  
@@ -22,7 +22,7 @@ Inclui os comandos para a pré-instalação dos seguintes pacotes:
 ```
 docker build --build-arg def_nameserver=**8.8.8.8** -t dms/shinybr .  
 ```
-### Se necessário substitua o ip do servidor de nomes por outro.  
+### Se necessário substitua o IP do servidor de nomes por outro IP.  
 
 1 - Primeiro é necessário criar no servidor os diretórios onde ficarão armazenadas os __apps, configurações e logs__.  
 
@@ -60,3 +60,41 @@ docker run -d --name shiny-br --restart unless-stopped -p 3839:3838 \
 
 
 ## URL do projeto no Docker Hub: [dmslabsbr/shinybr](https://hub.docker.com/r/dmslabsbr/shinybr)
+
+
+# ShinyBR-Server
+Docker compose file that deploy a R Shiny Server ready-to-use solution
+
+### O arquivo de script `start-containers.sh` permite que automáticamente a disponibilização de uma solução "completa" para o servidor R Shiny.
+
+# Para iniciar o conjunto de containers siga estes passos:
+
+## **1 - Clone este repositório em sua maquina:**
+```
+git clone https://github.com/dmslabsbr/shinyBR.git
+```
+
+## **2 - Entre no diretório criado no clone**
+```
+cd shinyBR
+```
+
+## **3 - Entre no diretório criado no clone**
+```
+cd shinyBR
+```
+
+## **4 - Edite o arquivo de configuração `shiny-server.conf.txt` conforme sua necessidade.
+
+## **5 - Execute o script para inicializar os containers**
+```
+. start-containers.sh
+```
+
+## **6 - Os seguintes containers serão inicializados:**
+
+### [dmslabsbr/shinyBR](https://github.com/dmslabsbr/shinyBR) - Servidor R pré-configurado para Brasil. `**Porta:** 3839`
+### [dperson/samba](https://github.com/dperson/samba) - Servidor samba pré-configurado. `**Portas:** 193 e 445`
+### [filebrowser/filebrowser](https://github.com/filebrowser/filebrowser) - Web File Browser pré-configurado para envio de arquivos para o servidor R. `**Porta:** 9002`
+#### Usuário padrão / Senha padrão: 'admin/admin'
+### [portainer/portainer](https://github.com/portainer/portainer) - Interface de usuário WEB para gerenciamento simples de containers docker. `**Porta:** 9001`
