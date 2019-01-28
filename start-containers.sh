@@ -1,13 +1,13 @@
 #!/bin/bash
 
-echo "Starting containers \e[95m....."
+echo -e "Starting containers \e[95m.....\e[0m"
 # cria os diretórios no servidor host
-echo -e ".... \e[92mCreating folders "
+echo -e ".... \e[92mCreating folders \e[0m"
 mkdir -p /srv/shiny-server/log
 mkdir -p /srv/shiny-server/cfg
 mkdir -p /srv/shiny-server/apps
 
-echo -e ".... \e[92mCopying configurations files."
+echo -e ".... \e[92mCopying configurations files.\e[0m"
 #copia arquivos de configuração, caso não exista
 cp -u shiny-server.conf.txt /srv/shiny-server/cfg/shiny-server.conf
 
@@ -16,7 +16,7 @@ cp -u index.html /srv/shiny-server/apps
 
 
 # Start Shiny-server
-echo -e ".... Starting \e[93mShiny Server"
+echo -e ".... Starting \e[93mShiny Server\e[0m"
 docker run -d --name shiny_srv --restart always \
     -p 3839:3838 \
     --dns=8.8.8.8 \
@@ -34,7 +34,7 @@ docker run -d --name shiny_srv --restart always \
 sleep 5s
     
 # Start portainer_app
-echo -e ".... Starting \e[93mPortainer.io"
+echo -e ".... Starting \e[94mPortainer.io\e[0m"
 docker run -d --name portainer_app --restart always \
     --dns=8.8.8.8 \
     -p 9001:9000 \
@@ -45,7 +45,7 @@ docker run -d --name portainer_app --restart always \
 sleep 1s    
 
 # Start filebrowser_app
-echo -e ".... Starting \e[93mFile Browser"
+echo -e ".... Starting \e[95mFile Browser\e[0m"
 docker run -d --name filebrowser_app --restart always \
     --dns=8.8.8.8 \
     -p 9002:80 \
@@ -58,7 +58,7 @@ docker run -d --name filebrowser_app --restart always \
 sleep 1s        
     
 # Start samba_app - Please change the password
-echo -e ".... Starting \e[93mSamba Server"
+echo -e ".... Starting \e[92mSamba Server\e[0m"
 docker run -d --name samba_app --restart always \
     --dns=8.8.8.8 \
     -p 139:139 \
@@ -71,5 +71,5 @@ docker run -d --name samba_app --restart always \
 sleep 1s
 
 # Show all containers
-echo -e "\e[44mAll Containers !!!"
+echo -e "\e[44mAll Containers !!! \e[0m"
 docker ps
