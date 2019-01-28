@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 echo -e "Starting containers \e[95m.....\e[0m"
 # cria os diretórios no servidor host
