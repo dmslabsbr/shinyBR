@@ -18,11 +18,11 @@ docker run -d --name shiny-br --restart unless-stopped -p "$R_SERVER_EX_PORT":38
     -e LANG='pt_BR.UTF-8' \
     -e TERM='xterm' \
     -e TZ='America Sao_Paulo' \
-    -v "$R_SERVER_FOLDER"/apps/:/srv/shiny-server/ \
+    -v "$R_SERVER_FOLDER"/app0/:/srv/shiny-server/root \
     -v "$R_SERVER_FOLDER"/app1/:/srv/shiny-server/a \
     -v "$R_SERVER_FOLDER"/app2/:/srv/shiny-server/b \
     -v "$R_SERVER_FOLDER"/app3/:/srv/shiny-server/c \
-    -v "$R_SERVER_FOLDER"/appTst/:/srv/shiny-server/t \
+    -v "$R_SERVER_FOLDER"/appTst/:/srv/shiny-server/tst \
     -v "$R_SERVER_FOLDER"/log/:/var/log/shiny-server/ \
     -v "$R_SERVER_FOLDER"/cfg:/etc/shiny-server \
     dmslabsbr/shinybr /usr/bin/shiny-server.sh

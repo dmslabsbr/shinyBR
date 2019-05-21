@@ -29,7 +29,7 @@ echo -e ".... \e[92mCopying configurations files.\e[0m"
 cp -u shiny-server.conf.txt "$R_SERVER_FOLDER"/cfg/shiny-server.conf
 
 #copia aplicação
-cp -u index.html "$R_SERVER_FOLDER"/apps
+cp -u index.html "$R_SERVER_FOLDER"/app0
 
 # Start Shiny-server
 echo -e ".... Starting \e[93mShiny Server\e[0m"
@@ -55,7 +55,11 @@ docker run -d --name filebrowser_app --restart unless-stopped \
     -p "$R_FILEBROWSER_EX_PORT":80 \
     -v "$R_FILEBROWSER_FOLDER"/config.json:/config.json \
     -v "$R_FILEBROWSER_FOLDER"/etc:/etc \
-    -v "$R_SERVER_FOLDER"/apps:/srv/apps \
+    -v "$R_SERVER_FOLDER"/app0:/srv/root_dir \
+    -v "$R_SERVER_FOLDER"/app1:/srv/dir_a \
+    -v "$R_SERVER_FOLDER"/app2:/srv/dir_b \
+    -v "$R_SERVER_FOLDER"/app3:/srv/dir_c \
+    -v "$R_SERVER_FOLDER"/appTst:/srv/dir_t \
     -v "$R_SERVER_FOLDER"/log:/srv/log \
     filebrowser/filebrowser
 
