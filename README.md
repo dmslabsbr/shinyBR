@@ -67,7 +67,7 @@ Docker compose file that deploy a R Shiny Server ready-to-use solution
 
 ### O arquivo de script `start-containers.sh` permite que automáticamente a disponibilização de uma solução "completa" para o servidor R Shiny.
 
-# Para iniciar o conjunto de containers siga estes passos:
+# Para iniciar o `conjunto de containers`, já preparado para utilização, siga estes passos:
 
 ## **1 - Clone este repositório em sua maquina:**
 ```
@@ -79,16 +79,11 @@ git clone https://github.com/dmslabsbr/shinyBR.git
 cd shinyBR
 ```
 
-## **3 - Entre no diretório criado no clone**
-```
-cd shinyBR
-```
+## **3 - Edite o arquivo de configuração `start_ShinyBr.sh` conforme sua necessidade.
 
-## **4 - Edite o arquivo de configuração `shiny-server.conf.txt` conforme sua necessidade.
-
-## **5 - Execute o script para inicializar os containers**
+## **4 - Execute o script para inicializar os containers**
 ```
-. start-containers.sh
+. start-all-containers.sh
 ```
 
 ## **6 - Os seguintes containers serão inicializados:**
