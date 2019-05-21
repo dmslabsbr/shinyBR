@@ -1,5 +1,5 @@
 # Variables
-ARQ_MSG = "Default FILE"                    # File identification 
+ARQ_MSG="Default FILE"                      # File identification 
 R_DNS="8.8.8.8"                             # DNS Server
 R_SERVER_FOLDER="/srv/shiny-server"         # External R Server folder
 R_SERVER_EX_PORT=3839                       # External R Server port
@@ -23,3 +23,5 @@ SambaM1="Folder R-Server $SambaS1 user: $SambaU1"
 SambaM2="Folder R-Server $SambaS2 user: $SambaU2"
 SambaM3="Folder R-Server $SambaS3 user: $SambaU3"
 SambaM0="Folder R-Server $SambaS0 user: $SambaU0"
+
+echo $ARQ_MSG

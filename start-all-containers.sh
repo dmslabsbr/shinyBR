@@ -63,7 +63,19 @@ sleep 3s
     
 # Start samba_app - Please change the password
 echo -e ".... Starting \e[92mSamba Server\e[0m"
-. start_Samba.sh
+
+ARQ1="start_Samba.sh"
+ARQ2=mp."$ARQ1"
+
+if [ -f "$ARQ2" ]; then
+    # run other
+    . "$ARQ2"
+else
+    # run default
+    . "$ARQ1"
+fi
+echo -e "MSG FILE: \e[91m"$ARQ_MSG"\e[0m"
+
     
 sleep 3s
 
