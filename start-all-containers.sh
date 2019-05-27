@@ -12,6 +12,7 @@ else
     . "$ARQ1"
 fi
 echo -e "MSG FILE: \e[91m"$ARQ_MSG"\e[0m"
+echo -e "DNS: \e[92m"$R_DNS"\e[0m"
 
 echo -e "Starting containers \e[95m.....\e[0m"
 # cria os diretórios no servidor host
@@ -55,6 +56,8 @@ docker run -d --name filebrowser_app --restart unless-stopped \
     -p "$R_FILEBROWSER_EX_PORT":80 \
     -v "$R_FILEBROWSER_FOLDER"/config.json:/config.json \
     -v "$R_FILEBROWSER_FOLDER"/etc:/etc \
+    -v "$R_FILEBROWSER_FOLDER"/filebrowser.db:/database.db \
+    -v "$R_FILEBROWSER_FOLDER"/filebrowser.json:/.filebrowser.json \
     -v "$R_SERVER_FOLDER"/app0:/srv/root_dir \
     -v "$R_SERVER_FOLDER"/app1:/srv/dir_a \
     -v "$R_SERVER_FOLDER"/app2:/srv/dir_b \
