@@ -1,9 +1,9 @@
-list.of.packages <- c("shiny", "readr", "DT", "shinymaterial", "tidyverse", "flexdashboard", "sf", "rgeos", "rgdal", "readxl", "rmapshaper", "leaflet", "shinythemes", "Cairo", "rAmCharts", "forcats", "formattable", "gridExtra", "highcharter", "htmltools", "htmlwidgets", "knitr", "kableExtra", "leaflet.extras", "lubridate", "pacman", "purrr", "RColorBrewer", "reshape2", "stringr", "broom", "crosstalk", "devtools", "extrafont", "formatR", "gapminder", "ggmap", "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts", "maptools", "plotly","reshape", "reshape", "rmarkdown", "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis", "viridisLite", "xtable")
+list.of.packages <- c("shiny", "readr", "DT", "shinymaterial", "tidyverse", "flexdashboard", "sf", "rgeos", "rgdal", "readxl", "rmapshaper", "leaflet", "shinythemes", "Cairo", "rAmCharts", "forcats", "formattable", "gridExtra", "highcharter", "htmltools", "htmlwidgets", "knitr", "kableExtra", "leaflet.extras", "lubridate", "pacman", "purrr", "RColorBrewer", "reshape2", "stringr", "broom", "crosstalk", "devtools", "extrafont", "formatR", "gapminder", "ggmap", "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts", "maptools", "plotly","reshape", "reshape", "rmarkdown", "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis", "viridisLite", "xtable","brazilmaps")
 
 
 
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+if(length(new.packages)) install.packages(new.packages, repos='http://cran.us.r-project.org')
 
 

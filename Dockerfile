@@ -38,7 +38,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
 RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search intranet.mpgo" >> /etc/resolv.conf && \
     apt-get update && \ 
-	apt-get install -y sudo gdebi-core wget  && \
+	apt-get install -y sudo gdebi-core wget nano  && \
 	apt-get clean
 
 # basic shiny functionality
@@ -70,12 +70,12 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'formatR', 'gapminder', 'ggmap', \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape', 'tictoc', \
-    'tmap', 'tmaptools', 'viridis'))" && \
+    'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
 	apt-get clean
 
 # Config
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
-ENV R_VERSION='3.5.1'
+ENV R_VERSION='3.6.0'
 ENV TERM='xterm'
 
 # copy the app to the image
@@ -83,6 +83,7 @@ ENV TERM='xterm'
 #COPY pgj /root/pgj
 
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
+COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
 COPY index.html /root
 RUN apt-get clean
 EXPOSE 3838
