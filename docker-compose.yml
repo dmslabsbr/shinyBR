@@ -1,0 +1,88 @@
+version: '3.2'
+services:
+    shiny:
+        container_name: shiny-br
+        restart: unless-stopped
+        ports:
+            - '3839:3838'
+        dns:
+            - 8.8.8.8
+        environment:
+            - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - R_VERSION='3.5.1'
+            - LC_ALL='pt_BR.UTF-8'
+            - LANG='pt_BR.UTF-8'
+            - TERM='xterm'
+            - TZ='America Sao_Paulo'
+        network_mode: "bridge"
+        entrypoint: ["/usr/bin/shiny-server.sh"]
+        volumes:
+            - '/srv/shiny-server/apps/:/srv/shiny-server/'
+            - '/srv/shiny-server/log/:/var/log/shiny-server/'
+        image: dmslabsbr/shinybr
+        
+    portainer:
+        container_name: portainer_app
+        restart: unless-stopped
+        dns:
+            - 8.8.8.8
+        ports:
+            - '9000:9000'
+        network_mode: "bridge"
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/opt/portainer/data:/data'
+        image: portainer/portainer
+        
+        
+    filebrowser:
+        container_name: filebrowser_app
+        restart: unless-stopped
+        dns:
+            - 8.8.8.8
+        ports:
+            - '9001:80'
+        network_mode: "bridge"
+        volumes:
+            - '/srv/filebrowser/config.json:/config.json'
+            - '/srv/filebrowser/etc:/etc'
+            - '/srv/filebrowser/filebrowser.db:/database.db'
+            - '/srv/filebrowser/filebrowser.json:/.filebrowser.json'
+            - '/srv/shiny-server:/srv/root_dir'
+            - '/srv/shiny-server/log:/srv/log'
+        image: filebrowser/filebrowser
+    
+    samba:
+        container_name: samba_app
+        restart: unless-stopped
+        dns:
+            - 8.8.8.8
+        ports:
+            - '139:139'
+            - '445:445'
+        network_mode: "bridge"
+        volumes:
+            - '/srv/shiny-server/apps:/srv/root_dir'
+            - '/srv/shiny-server/log:/srv/log'
+        image: dperson/samba
+    
+    db:
+        image: mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=test
+            - MYSQL_DATABASE=radio
+        volumes:
+            - ./database:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=db
+        restart: always
+        ports:
+            - 8080:80
+        volumes:
+            - /sessions
+        links:
+            - db

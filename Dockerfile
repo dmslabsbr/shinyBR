@@ -1,10 +1,11 @@
 FROM rocker/shiny
 MAINTAINER Daniel "danielmiele@mpgo.mp.br"
 # system libraries of general use
+# v. 1.2 - 13/12/2019
 
 ARG def_nameserver=8.8.8.8
 
-RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search intranet.mpgo" >> /etc/resolv.conf && \
     apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
@@ -71,7 +72,13 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
-	apt-get clean
+    apt-get clean
+    
+# Pacotes 13/12/2019
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
+    apt-get clean
 
 # Config
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"

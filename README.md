@@ -1,4 +1,4 @@
-﻿# shinyBR  
+﻿# shinyBR v.1.1
   
 Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).  
 Servidor padronizado para a lingua portuguesa, Brasil.  
@@ -15,7 +15,9 @@ Inclui os comandos para a pré-instalação dos seguintes pacotes:
  "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts",  
  "maptools", "plotly","reshape", "reshape", "rmarkdown",  
  "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis",  
- "viridisLite", "xtable")  
+ "viridisLite", "xtable",
+ "dplyr", 'shinydashboard', 'openxlsx', **# v.1.1**
+ 'DBI', 'RMariaDB', 'shinyjs', 'pool', 'devtools')  
 
 ## Comando para gerar a imagem - Arquivo: `docker build.sh`  
 

@@ -1,19 +1,20 @@
 #!/bin/bash
 
-#Criar diretórios /srv/shiny-server
+# Before you start you must create the following directories
+#                 /srv/shiny-server
 #                 /srv/shiny-server/log
 #                 /srv/shiny-server/cfg
 #                 /srv/shiny-server/apps  # Principal
 #                 /srv/shiny-server/app1  # para outras áreas
 #                 /srv/shiny-server/app2  # para outras áreas
 #                 /srv/shiny-server/app3  # para outras áreas
-#Copiar shiny-server.conf para /srv/shiny-server/cfg
+# Copy shiny-server.conf to /srv/shiny-server/cfg
 
 
 docker run -d --name shiny-br --restart unless-stopped -p "$R_SERVER_EX_PORT":3838 \
     --dns="$R_DNS" \
     -e PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
-    -e R_VERSION='3.5.1' \
+    -e R_VERSION='3.6.1' \
     -e LC_ALL='pt_BR.UTF-8' \
     -e LANG='pt_BR.UTF-8' \
     -e TERM='xterm' \

@@ -1,6 +1,9 @@
 ﻿#!/bin/bash
 echo -e "Loading variables \e[95m.....\e[0m"
 
+
+# Starts all containers needed for shinyBr execution and administration.
+
 ARQ1="variables.sh"
 ARQ2=mp."$ARQ1"
 

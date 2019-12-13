@@ -1,0 +1,33 @@
+# only shiny-server
+
+version: '3.3'
+
+volumes:
+  data:
+  apps:
+  logs:
+
+services:
+  shiny:
+    image: dmslabsbr/shinybr
+    container_name: shiny-br
+    restart: unless-stopped
+    ports:
+      - '3839:3838'
+    volumes:
+      - apps:/srv/shiny-server/
+      - logs:/var/log/shiny-server/
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - R_VERSION='3.5.1'
+      - LC_ALL='pt_BR.UTF-8'
+      - LANG='pt_BR.UTF-8'
+      - TERM='xterm'
+      - TZ='America Sao_Paulo'
+    network_mode: "bridge"
+    entrypoint: ["/usr/bin/shiny-server.sh"]
+
+
+#cat >docker-compose.yml
+#docker-compose up -d
+# docker exec -it shiny-br /bin/bash
