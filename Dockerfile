@@ -1,5 +1,5 @@
 FROM rocker/shiny
-MAINTAINER Daniel "danielmiele@mpgo.mp.br"
+LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
 # v. 2.0 - 14/05/2020
 
