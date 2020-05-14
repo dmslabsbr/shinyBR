@@ -1,12 +1,13 @@
 FROM rocker/shiny
 MAINTAINER Daniel "danielmiele@mpgo.mp.br"
 # system libraries of general use
-# v. 1.2 - 13/12/2019
+# v. 2.0 - 14/05/2020
 
 ARG def_nameserver=8.8.8.8
+ARG def_search=intranet.mpgo
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
     sudo \
@@ -28,7 +29,7 @@ ENV LANG pt_BR.utf8
 ENV LANGUAGE pt_BR.utf8
 ENV TZ="America Sao_Paulo"
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     sudo locale-gen pt_BR pt_BR.utf8 pt_BR.iso88591 \
       Portuguese_Brazil Portuguese_Brazil.1252 && \
     sudo update-locale && \
@@ -37,21 +38,21 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
 
 #Nameserver
 RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     apt-get update && \ 
 	apt-get install -y sudo gdebi-core wget nano  && \
 	apt-get clean
 
 # basic shiny functionality
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     R -e "install.packages(c('shiny', 'rmarkdown', \
     'shinymaterial', 'tidyverse', 'readr', 'DT'))"  && \
 	apt-get clean
 
 # Novos pacotes
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     apt-get install -y --no-install-recommends \
     libprotobuf-dev \
     libv8-dev \
@@ -62,7 +63,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
 	apt-get clean
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     R -e "install.packages(c('rmapshaper', 'flexdashboard', 'leaflet', \
     'shinythemes', 'Cairo', 'rAmCharts', 'formattable', \
     'gridExtra', 'highcharter', 'htmlwidgets', \
@@ -74,11 +75,21 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
     apt-get clean
     
-# Pacotes 13/12/2019
+# Pacotes R 13/12/2019
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
-    echo "search intranet.mpgo" >> /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
     R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
     apt-get clean
+
+# Pacotes R 14/05/2020
+RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
+    echo "search ${def_search}" >> /etc/resolv.conf && \
+    R -e "install.packages(c('sqldf'))" && \
+    R -e "devtools::install_github('dmslabsbr/dtedit2'" && \
+    R -e "devtools::install_github('dmslabsbr/shinyldap'" && \
+    apt-get clean
+
+
 
 # Config
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
