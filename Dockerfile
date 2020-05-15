@@ -8,7 +8,7 @@ ARG def_search=intranet.mpgo
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
-    apt-get update && apt-get install -y --no-install-recommends \
+    apt update && apt install -y --no-install-recommends \
     apt-utils \
     sudo \
     pandoc \
@@ -21,7 +21,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     libxml2-dev \
     locales \
     locales-all && \
-	apt-get clean
+	apt clean
 
 #LOCALE
 ENV LC_ALL pt_BR.utf8
@@ -30,25 +30,26 @@ ENV LANGUAGE pt_BR.utf8
 ENV TZ="America Sao_Paulo"
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
+    echo "Set disable_coredump false" >> /etc/sudo.conf && \
     sudo locale-gen pt_BR pt_BR.utf8 pt_BR.iso88591 \
       Portuguese_Brazil Portuguese_Brazil.1252 && \
     sudo update-locale && \
     sudo dpkg-reconfigure locales  && \
-	apt-get clean
+	apt clean
 
 #Nameserver
 RUN  echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
-    apt-get update && \ 
-	apt-get install -y sudo gdebi-core wget nano  && \
-	apt-get clean
+    apt update && \ 
+	apt install -y sudo gdebi-core wget nano  && \
+	apt clean
 
 # basic shiny functionality
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
     R -e "install.packages(c('shiny', 'rmarkdown', \
     'shinymaterial', 'tidyverse', 'readr', 'DT'))"  && \
-	apt-get clean
+	apt clean
 
 # Novos pacotes
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
@@ -60,7 +61,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     libjq-dev \
     libgdal-dev \
     protobuf-compiler  && \
-	apt-get clean
+	apt clean
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
@@ -73,13 +74,13 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
-    apt-get clean
+    apt clean
     
 # Pacotes R 13/12/2019
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
     R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
-    apt-get clean
+    apt clean
 
 # Pacotes R 14/05/2020
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
@@ -87,7 +88,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     R -e "install.packages(c('sqldf'))" && \
     R -e "devtools::install_github('dmslabsbr/dtedit2'" && \
     R -e "devtools::install_github('dmslabsbr/shinyldap'" && \
-    apt-get clean
+    apt clean
 
 
 
@@ -103,6 +104,6 @@ ENV TERM='xterm'
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
 COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
 COPY index.html /root
-RUN apt-get clean
+RUN apt clean
 EXPOSE 3838
 CMD ["R", "-e", "shiny::runApp('/root')"]
