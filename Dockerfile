@@ -40,10 +40,8 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'reshape', 'reshape', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
     R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
-    echo "\e[94mPacotes R 14/05/2020\e[0m" && \
-    R -e "install.packages(c('sqldf'))" && \
-    R -e "devtools::install_github('dmslabsbr/dtedit2')" && \
-    R -e "devtools::install_github('dmslabsbr/shinyldap')"
+    echo "\e[94m* Pacotes R 14/05/2020\e[0m" && \
+    R -e "install.packages(c('sqldf'))"
 
 
 # Config
