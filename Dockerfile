@@ -41,8 +41,15 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
     R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
     echo "\e[94m* Pacotes R 14/05/2020\e[0m" && \
-    R -e "install.packages(c('sqldf'))"
-
+    R -e "install.packages(c('sqldf'))" && \
+    echo "\e[94m*  Pacotes dmslabsbr  *\e[0m" && \
+    R -e "devtools::install_github('dmslabsbr/dtedit2')" && \
+    R -e "devtools::install_github('dmslabsbr/shinyldap')" && \
+    echo "\e[94m* Limpando filesystem \e[0m" && \
+    rm -rf /tmp/* && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y
 
 # Config
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
@@ -53,13 +60,10 @@ ENV LANG pt_BR.utf8
 ENV LANGUAGE pt_BR.utf8
 ENV TZ="America Sao_Paulo"
 
-# copy the app to the image
-#RUN mkdir /root/pgj
-#COPY pgj /root/pgj
-
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
 COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
 COPY index.html /root
+COPY app.R /root
 RUN apt-get clean
 EXPOSE 3838
 CMD ["R", "-e", "shiny::runApp('/root')"]
