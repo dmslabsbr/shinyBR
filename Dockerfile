@@ -37,7 +37,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'pacman', 'devtools', 'extrafont', \
     'formatR', 'gapminder', 'ggmap', \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
-    'reshape', 'reshape', 'tictoc', \
+    'reshape', 'reshape2', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
     R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
     echo "\e[94m* Pacotes R 14/05/2020\e[0m" && \
@@ -62,8 +62,10 @@ ENV TZ="America Sao_Paulo"
 
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
 COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
-COPY index.html /root
+COPY shiny-server.conf /srv/shiny-server/cfg
+COPY shiny-server.conf /etc/shiny-server
 COPY app.R /root
+COPY index.html /root
 RUN apt-get clean
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('/root')"]
+CMD ["R", "-e", "shiny::runApp('/root', port = 3838)"]

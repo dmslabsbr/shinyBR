@@ -1,4 +1,4 @@
-﻿# shinyBR v.1.1
+﻿# shinyBR v.2.0
   
 Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).  
 Servidor padronizado para a lingua portuguesa, Brasil.  
@@ -11,13 +11,19 @@ Inclui os comandos para a pré-instalação dos seguintes pacotes:
  "gridExtra", "highcharter", "htmltools", "htmlwidgets", "knitr",  
  "kableExtra", "leaflet.extras", "lubridate", "pacman", "purrr",  
  "RColorBrewer", "reshape2", "stringr", "broom", "crosstalk",  
- "devtools", "extrafont", "formatR", "gapminder", "ggmap",   
+ "devtools", "extrafont", "formatR", "gapminder", "ggmap",
  "ggthemes", "haven","htmlwidgets", "httpuv", "leaflet.minicharts",  
- "maptools", "plotly","reshape", "reshape", "rmarkdown",  
+ "maptools", "plotly","reshape", "rmarkdown",  
  "scales", "tictoc", "tidyr", "tmap", "tmaptools", "viridis",  
  "viridisLite", "xtable",
  "dplyr", 'shinydashboard', 'openxlsx', **# v.1.1**
- 'DBI', 'RMariaDB', 'shinyjs', 'pool', 'devtools')  
+ 'DBI', 'RMariaDB', 'shinyjs', 'pool', 'devtools',
+ "brazilmaps", 'RPostgres', 'shinyalert', 'RCurl')  **# v2.0**
+
+#### [dmslabsbr/dtedit2](https://github.com/dmslabsbr/dtedit2)
+#### [dmslabsbr/ShinyLdap](https://github.com/dmslabsbr/ShinyLdap)
+
+
 
 ## Comando para gerar a imagem - Arquivo: `docker build.sh`  
 
@@ -40,7 +46,7 @@ docker build --build-arg def_nameserver=**8.8.8.8** -t dms/shinybr .
 docker run -d --name shiny-br --restart unless-stopped -p 3839:3838 \
     --dns=8.8.8.8 \
     -e PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' \
-    -e R_VERSION='3.5.1' \
+    -e R_VERSION='4.0' \
     -e LC_ALL='pt_BR.UTF-8' \
     -e LANG='pt_BR.UTF-8' \
     -e TERM='xterm' \
@@ -48,7 +54,7 @@ docker run -d --name shiny-br --restart unless-stopped -p 3839:3838 \
     -v /srv/shiny-server/apps/:/srv/shiny-server/ \
     -v /srv/shiny-server/log/:/var/log/shiny-server/ \
     -v /srv/shiny-server/cfg:/etc/shiny-server \
-    dmslabsbr/shinybr /usr/bin/shiny-server.sh
+    dmslabsbr/shinybr
 ```
 ### Caso necessário substitua:
 #### 1 - A porta **3839** por outra.

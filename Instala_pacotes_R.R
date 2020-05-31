@@ -12,12 +12,16 @@ list.of.packages <- c("shiny", "readr", "DT",
 
 #v.1.1
 list.of.packages <- c(list.of.packages, 
-				"dplyr","shiny", "readr", 'shinydashboard',
-				'openxlsx', 'DT', 'DBI', 'RMariaDB', 'shinyjs', 'pool')
+				"dplyr","shiny", 'shinydashboard',
+				'openxlsx', 'DBI', 'RMariaDB', 'shinyjs', 'pool')
 				
 #v.1.2
 
-list.of.packages <- c(list.of.packages, ‘RPostgres’)
+list.of.packages <- c(list.of.packages, 'RPostgres')
+
+#v.2.0
+
+list.of.packages <- c(list.of.packages, 'shinyalert', 'RCurl')
 
 install(devtools)
 library(devtools)
@@ -25,4 +29,5 @@ library(devtools)
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos='http://cran.us.r-project.org')
 
-
+ devtools::install_github('dmslabsbr/dtedit2')
+ devtools::install_github('dmslabsbr/shinyldap')
