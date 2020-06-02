@@ -62,7 +62,6 @@ ENV TZ="America Sao_Paulo"
 
 COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
 COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
-COPY shiny-server.conf /srv/shiny-server/cfg
 COPY shiny-server.conf /etc/shiny-server
 COPY app.R /root
 COPY index.html /root
