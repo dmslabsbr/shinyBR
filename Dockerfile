@@ -1,7 +1,7 @@
 FROM rocker/shiny
 LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
-# v. 2.0 - 28/05/2020
+# v. 2.0 - 19/08/2020
 
 ARG def_nameserver=8.8.8.8
 ARG def_search=intranet.mpgo
@@ -60,8 +60,8 @@ ENV LANG pt_BR.utf8
 ENV LANGUAGE pt_BR.utf8
 ENV TZ="America Sao_Paulo"
 
-COPY Rprofile.site.txt /usr/lib/R/etc/Rprofile.site
-COPY Rprofile.site.txt /usr/local/lib/R/etc/Rprofile.site
+COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
+COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 COPY shiny-server.conf /etc/shiny-server
 COPY app.R /root
 COPY index.html /root
