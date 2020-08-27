@@ -1,4 +1,4 @@
-﻿# shinyBR v.2.0
+﻿# shinyBR v.2.0 - 27/08/2020
   
 Imagem Docker de um Servidor R Shiny baseada na imagem [rocker/shiny](https://github.com/rocker-org/shiny).  
 Servidor padronizado para a lingua portuguesa, Brasil.  
