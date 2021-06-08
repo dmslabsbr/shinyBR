@@ -1,4 +1,4 @@
-FROM rocker/shiny:4.1.1
+FROM rocker/r-ver:4.1.0
 LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
 # v. 4.0 - 27/08/2020
