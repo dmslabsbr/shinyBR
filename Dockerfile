@@ -1,7 +1,7 @@
-FROM rocker/shiny
+FROM rocker/shiny:4.1.1
 LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
-# v. 2.0 - 27/08/2020
+# v. 4.0 - 27/08/2020
 
 ARG def_nameserver=8.8.8.8
 ARG def_search=intranet.mpgo
