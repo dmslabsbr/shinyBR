@@ -40,8 +40,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape2', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
-    R -e "install.packages(c('shinydashboard', 'openxlsx', \
-	'xlsx', \
+    R -e "install.packages(c('shinydashboard', 'openxlsx', 'xlsx' \
 	'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
     echo "\e[94m* Pacotes R 14/05/2020\e[0m" && \
     R -e "install.packages(c('sqldf'))" && \
@@ -70,4 +69,4 @@ COPY app.R /srv/shiny-server/apps
 COPY index.html /srv/shiny-server/apps
 RUN apt-get clean
 EXPOSE 3838
-#CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838)"]
+CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838)"]
