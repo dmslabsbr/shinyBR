@@ -1,7 +1,7 @@
 FROM rocker/r-ver:4.1.0
 LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
-# v. 4.0 - 27/08/2020
+# v. 4.0 - 09/06/2021
 
 ARG def_nameserver=8.8.8.8
 ARG def_search=intranet.mpgo
@@ -14,6 +14,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     sudo \
     pandoc pandoc-citeproc \
     libcurl4-gnutls-dev libcairo2-dev libxt-dev libssl-dev libssh2-1-dev libxml2-dev \
+	default-jre default-jdk r-cran-rjava \
     locales locales-all && \
     echo "\e[94m*  LOCALE  *\e[0m" && \
     echo "Set disable_coredump false" >> /etc/sudo.conf && \
@@ -39,7 +40,9 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     'ggthemes', 'leaflet.minicharts', 'plotly', \
     'reshape', 'reshape2', 'tictoc', \
     'tmap', 'tmaptools', 'viridis','brazilmaps'))" && \
-    R -e "install.packages(c('shinydashboard', 'openxlsx', 'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
+    R -e "install.packages(c('shinydashboard', 'openxlsx', \
+	'xlsx', \
+	'RMariaDB', 'shinyjs', 'pool', 'shinyalert', 'RCurl'))" && \
     echo "\e[94m* Pacotes R 14/05/2020\e[0m" && \
     R -e "install.packages(c('sqldf'))" && \
     echo "\e[94m*  Pacotes dmslabsbr  *\e[0m" && \
@@ -67,4 +70,4 @@ COPY app.R /srv/shiny-server/apps
 COPY index.html /srv/shiny-server/apps
 RUN apt-get clean
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838)"]
+#CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838)"]
