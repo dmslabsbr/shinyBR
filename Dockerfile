@@ -50,7 +50,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo -e "\e[94m* Pacotes R 14/05/2020\e[0m" && \
     R -e "install.packages(c('sqldf'))" && \
     echo -e "\e[94m* Pacotes R 10/06/2021\e[0m" && \
-    R.-e "install.packages('rJava', type = 'source', INSTALL_opts='--merge-multiarch')" && \
+    R -e "install.packages('rJava', type = 'source', INSTALL_opts='--merge-multiarch')" && \
     R -e "install.packages(c('xlmsx'))" && \
     echo -e "\e[94m*  Pacotes dmslabsbr  *\e[0m" && \
     R -e "devtools::install_github('dmslabsbr/dtedit2')" && \
@@ -77,4 +77,5 @@ COPY app.R /srv/shiny-server/apps
 COPY index.html /srv/shiny-server/apps
 RUN apt-get clean
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838, quiet = TRUE)"]
+CMD ["exec", "shiny-server"]
+#CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/apps', port = 3838, quiet = FALSE)"]
