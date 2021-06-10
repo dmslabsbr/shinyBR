@@ -3,8 +3,8 @@ LABEL maintainer="danielmiele@mpgo.mp.br"
 # system libraries of general use
 # v. 4.0 - 09/06/2021
 
-ARG def_nameserver=10.234.11.61
-ARG def_search=intranet.mpgo
+ARG def_nameserver=8.8.8.8
+#ARG def_search=intranet.mpgo
 
 RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     echo "search ${def_search}" >> /etc/resolv.conf && \
@@ -51,7 +51,7 @@ RUN echo "nameserver ${def_nameserver}" > /etc/resolv.conf && \
     R -e "install.packages(c('sqldf'))" && \
     echo -e "\e[94m* Pacotes R 10/06/2021\e[0m" && \
     R -e "install.packages('rJava', type = 'source', INSTALL_opts='--merge-multiarch')" && \
-    R -e "install.packages(c('xlmsx'))" && \
+    R -e "install.packages(c('xlsx'))" && \
     echo -e "\e[94m*  Pacotes dmslabsbr  *\e[0m" && \
     R -e "devtools::install_github('dmslabsbr/dtedit2')" && \
     R -e "devtools::install_github('dmslabsbr/shinyldap')" && \
